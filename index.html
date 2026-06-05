@@ -27,11 +27,13 @@
             overflow: hidden; 
             width: 100vw;
             height: 100vh;
+            height: 100dvh; /* <-- FIX: Altura dinámica para celulares */
         }
 
         .card-container {
             width: 100vw;
             height: 100vh;
+            height: 100dvh; /* <-- FIX: Altura dinámica para celulares */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -103,7 +105,7 @@
 
         .grass {
             position: absolute;
-            bottom: 0; left: -5%; width: 110%; height: 22vh; /* Altura fija para el césped */
+            bottom: 0; left: -5%; width: 110%; height: 22vh;
             background: #8bd450;
             border-top-left-radius: 50% 60px;
             border-top-right-radius: 50% 60px;
@@ -115,7 +117,7 @@
         .interactive-area {
             width: 100%;
             height: 100%;
-            position: relative; /* Cambiado de flex a relative para mejor control */
+            position: relative; 
             z-index: 2; 
             transition: opacity 0.5s;
         }
@@ -165,7 +167,7 @@
 
         .cat-stage {
             position: absolute;
-            bottom: 18vh; /* Lo baja un poco más hacia el césped */
+            bottom: 18vh;
             left: 50%;
             transform: translateX(-50%);
             width: 100%; 
@@ -182,7 +184,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            object-position: bottom center; /* ¡Esta línea ancla al gato abajo! */
+            object-position: bottom center; 
             transform-origin: bottom center; 
             transition: opacity 0.3s ease, transform 0.2s ease;
         }
@@ -194,7 +196,7 @@
 
         .bottom-hint {
             position: absolute;
-            bottom: 5vh; /* Siempre visible sin importar la altura de pantalla */
+            bottom: 6vh; 
             left: 50%;
             transform: translateX(-50%);
             width: 85%;
@@ -242,7 +244,7 @@
 
         .big-envelope {
             position: relative;
-            width: 320px;  /* Ajustado para que quepa en teléfonos */
+            width: 320px;  
             height: 220px;
             background: #d8c3af; 
             border-radius: 12px;
@@ -366,7 +368,7 @@
         }
 
         .big-envelope.is-open .envelope-paper {
-            transform: translateY(-140px); /* Ajustado al nuevo tamaño */
+            transform: translateY(-140px); 
         }
 
         /* --- FASE 4: La Carta Final --- */
@@ -377,7 +379,7 @@
             backdrop-filter: blur(10px);
             padding: 20px; 
             display: flex;
-            align-items: center; /* Centra la carta */
+            align-items: center; 
             justify-content: center;
             opacity: 0;
             transform: translateY(30px) scale(0.95);
@@ -395,17 +397,16 @@
         .letter-content-box {
             width: 100%;
             max-width: 550px;
-            max-height: 85vh; /* Evita que crezca más que la pantalla */
-            overflow-y: auto; /* Permite hacer scroll interno si el texto es largo */
+            max-height: 85vh; 
+            overflow-y: auto; 
             padding: 40px 30px;
             background: #fffefb;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            display: block; /* Arregla el bug de contenido cortado arriba */
+            display: block; 
             text-align: center;
         }
 
-        /* Ocultar barra de scroll para que se vea más limpio pero siga funcionando */
         .letter-content-box::-webkit-scrollbar {
             width: 6px;
         }
@@ -442,13 +443,13 @@
 
         /* --- ADAPTACIÓN PARA TELÉFONOS --- */
         @media (max-width: 600px) {
-            .dialogue-box { font-size: 18px; padding: 15px; width: 90%; }
-            .bottom-hint { font-size: 15px; width: 90%; padding: 8px 15px; bottom: 4vh; }
+            .dialogue-box { font-size: 18px; padding: 15px; width: 90%; top: 8vh; } /* Subimos el diálogo */
+            .bottom-hint { font-size: 15px; width: 90%; padding: 8px 15px; bottom: 10vh; } /* FIX: Subimos el botón bastante para que NUNCA se oculte */
             .letter-content-box { padding: 30px 20px; }
             .letter-title { font-size: 30px; margin-bottom: 20px; }
             .letter-text { font-size: 17px; line-height: 1.6; } 
             .letter-text p { margin: 0 0 15px 0; }
-            .cat-stage { height: 35vh; bottom: 20vh; } /* Ajuste final para móviles para que hunda las patitas */
+            .cat-stage { height: 35vh; bottom: 20vh; } 
         }
     </style>
 </head>
