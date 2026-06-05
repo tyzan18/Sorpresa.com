@@ -5,145 +5,445 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sorpresa Especial para Rachel</title>
     <style>
-:root {
-    --accent-pink: #f2c6c2;
-    --accent-red: #d15252;
-    --text-dark: #3a3333;
-    --font-serif: 'Georgia', serif;
-}
+        :root {
+            --accent-pink: #f2c6c2;
+            --accent-red: #d15252;
+            --text-dark: #3a3333;
+            --font-serif: 'Georgia', serif;
+            
+            /* Ajuste de altura del gato feliz */
+            --ajuste-gato-feliz: 15px; 
+        }
 
-html, body {
-    height: 100%;
-    overscroll-behavior: none;
-}
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #a2dffa; 
+            overflow: hidden; 
+            width: 100vw;
+            height: 100vh;
+        }
 
-/* BASE = MOBILE */
-body {
-    margin: 0;
-    font-family: system-ui, -apple-system, sans-serif;
-    background-color: #a2dffa;
-    overflow: hidden;
-}
+        .card-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden; 
+        }
 
-/* CONTENEDOR */
-.card-container {
-    width: 100%;
-    height: 100dvh; /* mejor en mobile que vh */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        /* --- PAISAJE ANIMADO --- */
+        .scenery {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, #74cbf5 0%, #e0f6ff 65%);
+            z-index: 0;
+        }
 
-/* DIÁLOGO */
-.dialogue-box {
-    width: 90%;
-    padding: 16px;
-    font-size: 16px;
-    border-radius: 16px;
-}
+        .sun {
+            position: absolute;
+            top: 8vh; right: 8vw;
+            width: 90px; height: 90px;
+            background: #ffde59;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #ffde59;
+            animation: pulse-sun 3s infinite alternate;
+        }
 
-/* GATO */
-.cat-stage {
-    height: 35vh;
-}
+        @keyframes pulse-sun {
+            0% { transform: scale(1); box-shadow: 0 0 30px #ffde59; }
+            100% { transform: scale(1.15); box-shadow: 0 0 60px #ffde59; }
+        }
 
-.cat-image {
-    object-fit: contain;
-}
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.9;
+            animation: float-cloud linear infinite;
+        }
 
-/* TEXTO ABAJO */
-.bottom-hint {
-    font-size: 14px;
-    padding: 8px 14px;
-}
+        .cloud::before, .cloud::after {
+            content: '';
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+        }
 
-/* SOBRE */
-.big-envelope {
-    width: 90%;
-    height: 200px;
-}
+        .cloud1 {
+            top: 15vh; left: -200px;
+            width: 140px; height: 45px;
+            animation-duration: 35s;
+        }
+        .cloud1::before { width: 70px; height: 70px; top: -35px; left: 20px; }
+        .cloud1::after { width: 55px; height: 55px; top: -20px; right: 20px; }
 
-/* CARTA */
-.letter-stage {
-    padding: 20px;
-}
+        .cloud2 {
+            top: 25vh; left: -150px;
+            width: 100px; height: 35px;
+            animation-duration: 25s;
+            animation-delay: 8s;
+            opacity: 0.7;
+        }
+        .cloud2::before { width: 50px; height: 50px; top: -25px; left: 15px; }
+        .cloud2::after { width: 40px; height: 40px; top: -15px; right: 15px; }
 
-.letter-content-box {
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    width: 95%;
-    max-height: 75dvh;
-    padding: 20px;
-}
+        @keyframes float-cloud {
+            0% { transform: translateX(-200px); }
+            100% { transform: translateX(120vw); } 
+        }
 
-.letter-title {
-    font-size: 24px;
-}
+        .grass {
+            position: absolute;
+            bottom: 0; left: -5%; width: 110%; height: 25vh; 
+            background: #8bd450;
+            border-top-left-radius: 50% 60px;
+            border-top-right-radius: 50% 60px;
+            box-shadow: inset 0 20px 40px rgba(255,255,255,0.25);
+        }
 
-.letter-text {
-    text-align: center;
-    text-wrap: pretty;
-    font-size: 16px;
-    line-height: 1.6;
-}
+        /* --- FASE 1 y 2: El Gato --- */
+        .interactive-area {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: opacity 0.5s;
+            position: relative;
+            z-index: 2; 
+            padding-top: 8vh;
+        }
 
-/* ---------------------- */
-/* TABLET */
-@media (min-width: 768px) {
+        .dialogue-box {
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px solid var(--accent-pink);
+            border-radius: 20px;
+            padding: 25px;
+            text-align: center;
+            font-size: 22px; 
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            color: var(--text-dark);
+            width: 85%;
+            max-width: 500px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            z-index: 3; 
+        }
 
-    .dialogue-box {
-        font-size: 18px;
-        padding: 20px;
-    }
+        .dialogue-box::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 15px 15px 0;
+            border-style: solid;
+            border-color: rgba(255, 255, 255, 0.95) transparent transparent transparent;
+            z-index: 1;
+        }
+        
+        .dialogue-box::before {
+            content: '';
+            position: absolute;
+            bottom: -19px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 18px 18px 0;
+            border-style: solid;
+            border-color: var(--accent-pink) transparent transparent transparent;
+            z-index: 0;
+        }
 
-    .cat-stage {
-        height: 40vh;
-    }
+        .cat-stage {
+            position: relative;
+            width: 100%; 
+            height: 38vh; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; 
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            z-index: 3;
+            margin-bottom: 0; 
+        }
 
-    .bottom-hint {
-        font-size: 16px;
-    }
+        .cat-image {
+            position: absolute; 
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-origin: bottom center; 
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
 
-    .big-envelope {
-        max-width: 350px;
-        height: 240px;
-    }
+        #cat-img-esperando { transform: scale(1.05); opacity: 1; }
+        #cat-img-feliz { transform: scale(1.05) translateY(var(--ajuste-gato-feliz)); opacity: 0; }
+        .cat-stage:hover #cat-img-esperando { transform: scale(1.1); }
+        .cat-stage:hover #cat-img-feliz { transform: scale(1.1) translateY(var(--ajuste-gato-feliz)); }
 
-    .letter-title {
-        font-size: 30px;
-    }
+        .bottom-hint {
+            margin-top: 10px;
+            margin-bottom: 2vh;
+            font-size: 18px;
+            color: #4a4241;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            z-index: 3;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: opacity 0.3s;
+        }
 
-    .letter-text {
-        font-size: 18px;
-    }
-}
+        /* --- FASE 3: EL SOBRE 3D ANIMADO --- */
+        .big-envelope-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            opacity: 0;
+            transform: scale(0.8);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 5;
+            background: rgba(255, 255, 255, 0.6); 
+            backdrop-filter: blur(8px); 
+        }
 
-/* ---------------------- */
-/* DESKTOP */
-@media (min-width: 1024px) {
+        /* Efecto final: volar hacia la cámara */
+        .big-envelope-stage.zoom-in {
+            transform: scale(4); /* Crece enormemente */
+            opacity: 0;
+            transition: transform 0.7s ease-in, opacity 0.4s ease-in 0.3s;
+        }
 
-    .dialogue-box {
-        font-size: 22px;
-        max-width: 500px;
-    }
+        .big-envelope-stage.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: auto;
+        }
 
-    .cat-stage {
-        height: 45vh;
-    }
+        .big-envelope {
+            position: relative;
+            width: 85px;
+            max-width: 380px;  
+            height: 220px;
+            background: #d8c3af; /* Interior del sobre */
+            border-radius: 12px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.25);
+            cursor: pointer;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            -webkit-tap-highlight-color: transparent;
+            perspective: 1200px; /* Para que la solapa se doble en 3D */
+        }
 
-    .big-envelope {
-        max-width: 380px;
-        height: 260px;
-    }
+        /* Elimina el salto al hacer hover si el sobre ya se está abriendo */
+        .big-envelope:not(.is-open):hover {
+            transform: scale(1.05) translateY(-5px);
+        }
 
-    .letter-title {
-        font-size: 36px;
-    }
+        /* La hoja interna que sale del sobre */
+        .envelope-paper {
+            position: absolute;
+            top: 10px; left: 15px; right: 15px; bottom: 15px;
+            background: #fffefb;
+            border-radius: 8px;
+            z-index: 1; /* Escondida detrás de las solapas delanteras */
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 30px;
+            /* La animación de salida. Espera 0.7s a que abra la solapa */
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.7s;
+        }
 
-    .letter-text {
-        font-size: 20px;
-    }
-}
+        /* Líneas falsas de texto para que parezca una carta */
+        .paper-line {
+            background: #f2c6c2;
+            border-radius: 3px;
+            margin-bottom: 12px;
+        }
+
+        .envelope-left {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4e8d8; 
+            clip-path: polygon(0 0, 55% 50%, 0 100%);
+            border-radius: 12px 0 0 12px;
+            z-index: 2;
+        }
+
+        .envelope-right {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f4e8d8;
+            clip-path: polygon(100% 0, 45% 50%, 100% 100%);
+            border-radius: 0 12px 12px 0;
+            z-index: 2;
+        }
+
+        .envelope-bottom {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fdf5e8; 
+            clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+            border-radius: 0 0 12px 12px;
+            z-index: 3;
+        }
+
+        .envelope-flap-wrapper {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            filter: drop-shadow(0px 8px 6px rgba(0,0,0,0.15));
+            transform-origin: top center; /* Para que gire desde arriba */
+            /* Animación de apertura de solapa. Espera 0.3s a que se rompa el sello */
+            transition: transform 0.6s ease 0.3s, z-index 0s 0.6s; 
+            z-index: 4;
+        }
+
+        .envelope-flap {
+            width: 100%; height: 100%;
+            background: #fffbfa; 
+            clip-path: polygon(0 0, 100% 0, 50% 58%);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .big-seal {
+            position: absolute;
+            top: 58%; 
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85px;
+            height: 85px;
+            background: radial-gradient(circle, #e63946 30%, #a61b27 100%);
+            border: 1px solid #780e18;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 
+                inset 0 3px 5px rgba(255,255,255,0.4),
+                inset 0 -4px 8px rgba(0,0,0,0.5), 
+                0 6px 12px rgba(0,0,0,0.4); 
+            z-index: 5;
+            animation: pulse-ring-seal 1.5s infinite;
+            /* Animación de ruptura del sello */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .big-seal::before {
+            content: '';
+            position: absolute;
+            width: 65px; height: 65px;
+            border: 2px dashed rgba(255, 255, 255, 0.35); 
+            border-radius: 50%;
+        }
+
+        @keyframes pulse-ring-seal {
+            0% { box-shadow: inset 0 3px 5px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.4), 0 0 0 0 rgba(209, 82, 82, 0.5); }
+            70% { box-shadow: inset 0 3px 5px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.4), 0 0 0 25px rgba(209, 82, 82, 0); }
+            100% { box-shadow: inset 0 3px 5px rgba(255,255,255,0.4), inset 0 -4px 8px rgba(0,0,0,0.5), 0 6px 12px rgba(0,0,0,0.4), 0 0 0 0 rgba(209, 82, 82, 0); }
+        }
+
+        /* --- CLASES ACTIVADAS MEDIANTE JAVASCRIPT --- */
+        
+        /* 1. El sello desaparece */
+        .big-envelope.is-open .big-seal {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            animation: none; /* Detiene el latido */
+        }
+
+        /* 2. La solapa gira 180 grados hacia atrás */
+        .big-envelope.is-open .envelope-flap-wrapper {
+            transform: rotateX(180deg);
+            z-index: 0; /* Se va al fondo para que la hoja pase por encima de ella */
+        }
+
+        /* 3. La hoja sale hacia arriba */
+        .big-envelope.is-open .envelope-paper {
+            transform: translateY(-160px);
+        }
+
+        /* --- FASE 4: La Carta Final --- */
+        .letter-stage {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255, 254, 251, 0.92);
+            backdrop-filter: blur(10px);
+            padding: 40px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            opacity: 0;
+            transform: translateY(30px) scale(0.95);
+            pointer-events: none;
+            transition: all 0.7s ease;
+            z-index: 10;
+        }
+
+        .letter-stage.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+        .letter-content-box {
+            width: 90%;
+            max-width: 500px;
+            max-height: 75vh; /* Ocupa hasta el 80% de la altura de la pantalla */
+            overflow-y: auto; /* Activa el scroll vertical */
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #fffefb;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .letter-title {
+            color: var(--accent-red);
+            font-family: var(--font-serif);
+            border-bottom: 3px solid var(--accent-pink);
+            padding-bottom: 15px;
+            margin-top: 0;
+            margin-bottom: 35px;
+            text-align: center;
+            width: 80%; 
+            max-width: 400px;
+            font-size: 28px;
+        }
+
+        .letter-text {
+            font-family: var(--font-serif);
+            font-size: 18px; 
+            line-height: 1.6; 
+            text-align: center;
+            color: #4a4241;
+            width: 100%;
+            max-width: 500px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .letter-text p {
+            margin: 0 0 25px 0; 
+        }
 
 
         .hidden { display: none !important; }
